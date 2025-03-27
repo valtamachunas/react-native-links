@@ -1,6 +1,7 @@
 import { StyleSheet, View, Image, TouchableOpacity } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Categories } from "@/components/categories";
+import { Link } from "@/components/link";
 
 export default function Index() {
   return (
@@ -12,6 +13,11 @@ export default function Index() {
         </TouchableOpacity>
       </View>
       <Categories />
+      <Link
+        name="Google"
+        url="https://www.google.com"
+        onDetails={() => console.log("clicouuu")}
+      />
     </View>
   );
 }
