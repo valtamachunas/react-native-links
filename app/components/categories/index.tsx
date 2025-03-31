@@ -20,7 +20,7 @@ export function Categories() {
 
 export const styles = StyleSheet.create({
   container: {
-    height: 52,
+    height: 30,
     maxHeight: 52,
   },
   content: {

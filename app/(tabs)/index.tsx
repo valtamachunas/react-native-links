@@ -11,14 +11,17 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { Categories } from "@/components/categories";
 import { Link } from "@/components/link";
 import { Option } from "@/components/option";
+import { useRouter } from "expo-router";
 
 export default function Index() {
+  const router = useRouter();
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <Image style={styles.logo} source={require("@/assets/logo.png")} />
 
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => router.navigate("/add")}>
           <MaterialIcons name="add" size={32} color="#a89907" />
         </TouchableOpacity>
       </View>
@@ -39,7 +42,7 @@ export default function Index() {
         showsVerticalScrollIndicator={false}
       />
 
-      <Modal transparent visible={true}>
+      <Modal transparent visible={false}>
         <View style={styles.modal}>
           <View style={styles.modalContent}>
             <View style={styles.modalHeader}>
