@@ -2,6 +2,7 @@ import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { Categories } from "@/components/categories";
+import { Input } from "@/components/input";
 
 export default function Add() {
   const router = useRouter();
@@ -16,6 +17,10 @@ export default function Add() {
       </View>
       <Text style={styles.label}>Selecione uma categoria</Text>
       <Categories />
+      <View style={styles.form}>
+        <Input placeholder="Nome" />
+        <Input placeholder="URL" />
+      </View>
     </View>
   );
 }
@@ -40,5 +45,9 @@ const styles = StyleSheet.create({
     fontSize: 18,
     paddingHorizontal: 24,
     color: "#1a1c27",
+  },
+  form: {
+    padding: 24,
+    gap: 16,
   },
 });
