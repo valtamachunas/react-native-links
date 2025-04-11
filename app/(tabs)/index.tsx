@@ -6,18 +6,36 @@ import {
   FlatList,
   Modal,
   Text,
+  Alert,
 } from "react-native";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Categories } from "@/components/categories";
 import { Link } from "@/components/link";
 import { Option } from "@/components/option";
-import { useRouter } from "expo-router";
+import { useRouter, useFocusEffect } from "expo-router";
 import { categories } from "@/utils/categories";
+import { linkStorage, LinkStorage } from "@/storage/link-storage";
 
 export default function Index() {
   const router = useRouter();
+  const [links, setLinks] = useState<LinkStorage[]>([]);
   const [category, setCategory] = useState(categories[0].name);
+
+  async function getLinks() {
+    try {
+      const reponse = await linkStorage.get();
+      setLinks(reponse);
+    } catch (error) {
+      Alert.alert("Erro", "Não foi possível listar os links");
+    }
+  }
+
+  useFocusEffect(
+    useCallback(() => {
+      getLinks();
+    }, [])
+  );
 
   return (
     <View style={styles.container}>
@@ -31,12 +49,12 @@ export default function Index() {
 
       <Categories onChange={setCategory} selected={category} />
       <FlatList
-        data={["1", "2", "3", "4"]}
-        keyExtractor={(item) => item}
-        renderItem={() => (
+        data={links}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
           <Link
-            name="Google"
-            url="https://www.google.com"
+            name={item.name}
+            url={item.url}
             onDetails={() => console.log("clicouuu")}
           />
         )}
